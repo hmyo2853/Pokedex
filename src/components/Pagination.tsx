@@ -1,12 +1,9 @@
-export default function Pagination({ limit, totalPosts, page, setPage }) {
-  const numPages = Math.ceil(totalPosts / limit);
-  return (
-    <div>
-      {Array(numPages).map((_, i) => (
-        <button key={i + 1} onClick={() => setPage(i + 1)}>
-          {i + 1}
-        </button>
-      ))}
-    </div>
-  );
+import { useState } from "react";
+
+export default function Pagination({ start, end }) {
+  /** 총 페이지수 Math.ceil(모든 전체 갯수 / 보여줄 갯수)
+  화면에 보여질 페이지 한 줄 Math.ceil(현재 페이지 / 한 줄에 보여지는 페이지 수)
+  */
+  console.log(start, end);
+  return <div></div>;
 }
