@@ -1,4 +1,3 @@
-import { PropsWithChildren } from "react";
 import { PokeName } from "../Pokedex";
 
 interface Props {
