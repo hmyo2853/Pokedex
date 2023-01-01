@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { PokeName } from "./Pokedex";
 import Pagination from "react-js-pagination";
-
+import "./sass/Pagination.sass";
 import "./sass/App.sass";
 
 const App = () => {
