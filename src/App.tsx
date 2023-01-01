@@ -1,33 +1,39 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
+import Pagination from "./components/Pagination";
 import Pokedata from "./components/Pokedata";
 import { PokeName } from "./Pokedex";
 import "./sass/App.sass";
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(10);
+  const [data, setData] = useState<PokeName[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1); // 페이지
 
   const URL = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
   const fetchPokemon = async (): Promise<PokeName[] | void> => {
     return fetch(URL).then(async (_res) => {
+      setLoading(true);
       if (!_res.ok)
         throw new Error(`HTTP Error : status code is ${_res.status}`);
       const _json = await _res.json();
       const _object = _json.results as PokeName[];
-      return _object;
+      setData(_object);
+      setLoading(false);
     });
   };
-  const { data, isLoading } = useQuery("PokeName", fetchPokemon);
+  useEffect(() => {
+    fetchPokemon();
+  }, []);
 
-  console.log(data);
-  if (isLoading) return <strong>Loading...</strong>;
+  if (loading) return <strong>Loading...</strong>;
   return (
-    <ul>
-      {data?.map((items, i) => (
-        <Pokedata key={i} value={items.name} />
-      ))}
-    </ul>
+    <>
+      <ul>
+        <Pokedata info={data} />
+      </ul>
+      <Pagination />
+    </>
   );
 };
 

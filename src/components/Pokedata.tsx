@@ -1,12 +1,20 @@
 import { PropsWithChildren } from "react";
+import { PokeName } from "../Pokedex";
 
-interface Pops {
-  value: string;
-  key: number;
+interface Props {
+  info: PokeName[];
 }
 
-const Pokedata = (props: PropsWithChildren<Pops>) => {
-  return <li key={props.key}>{props.value}</li>;
+const Pokedata = ({ info }: Props) => {
+  return (
+    <>
+      {info.map((items, i) => (
+        <li key={i}>
+          <span>{items.name}</span>
+        </li>
+      ))}
+    </>
+  );
 };
 
 export default Pokedata;
