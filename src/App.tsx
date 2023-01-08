@@ -2,10 +2,14 @@ import { useState, useEffect } from "react";
 import { PokeName } from "./Pokedex";
 import "./sass/App.sass";
 import Pokedata from "./components/Pokedata";
+import { useRecoilState } from "recoil";
+import { setMainNumberState } from "./store/store";
 
 const App = () => {
   const [_data, setData] = useState<PokeName[]>([]);
   const [loading, setLoading] = useState(false);
+  const [randomNum, setRandomNum] = useRecoilState(setMainNumberState);
+  console.log(randomNum);
 
   const URL = "https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0";
 
