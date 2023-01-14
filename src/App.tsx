@@ -1,40 +1,47 @@
 import { useState, useEffect } from "react";
-import { PokeName } from "./Pokedex";
+import { PokeIndexData } from "./Pokedex";
 import "./sass/App.sass";
 import Pokedata from "./components/Pokedata";
 import { useRecoilState } from "recoil";
 import { setMainNumberState } from "./store/store";
+import { useQuery } from "react-query";
 
 const App = () => {
-  const [_data, setData] = useState<PokeName[]>([]);
-  const [loading, setLoading] = useState(false);
   const [randomNum, setRandomNum] = useRecoilState(setMainNumberState);
-  console.log(randomNum);
+
+  const randomPukimonURL = `https://pokeapi.co/api/v2/pokemon/${randomNum}`;
 
   const URL = "https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0";
 
-  const fetchPokemon = async (): Promise<PokeName[] | void> => {
-    return fetch(URL).then(async (_res) => {
-      setLoading(true);
-      if (!_res.ok)
-        throw new Error(`HTTP Error : status code is ${_res.status}`);
-      const _json = await _res.json();
-      const _object = _json.results as PokeName[];
-      setData(_object);
-      setLoading(false);
+  const randomPukomonFetchData = async (): Promise<PokeIndexData | void> => {
+    /** 요청 응답 */
+    return fetch(randomPukimonURL).then(async (response) => {
+      /** 응답 오류 처리 */
+      if (!response.ok) return Promise.reject(`Error : ${response.status}`);
+
+      /** 응답 결과 해석 */
+      const randomPukimonJsonData = await response.json();
+
+      return randomPukimonJsonData;
     });
+
+    // return fetch(randomPukimonURL).then(async (_res) => {
+    //   setLoading(true);
+    //   if (!_res.ok)
+    //     throw new Error(`HTTP Error : status code is ${_res.status}`);
+    //   const _json = await _res.json();
+    //   setData(_json);
+    //   setLoading(false);
+    // });
   };
 
-  useEffect(() => {
-    fetchPokemon();
-  }, []);
+  /** react query fetch data of random pukimon */
+  const { data, isLoading } = useQuery("randomPukimon", randomPukomonFetchData);
 
-  if (loading) return <strong>Loading...</strong>;
-  return (
-    <>
-      <Pokedata info={_data} />
-    </>
-  );
+  console.log(data);
+  if (isLoading) return <strong>Loading...</strong>;
+
+  return <>{/* <Pokedata info={_data} /> */}</>;
 };
 
 export default App;

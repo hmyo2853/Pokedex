@@ -1,4 +1,14 @@
-export interface PokeName {
+export interface PokeIndexData {
   name: string;
-  url: string;
+  abilities: [
+    {
+      ability: {
+        name: string;
+        url: string;
+      };
+    }
+  ];
+  id: number;
+  state: Array;
+  sprites: { other: { officialArtwork: { front_default: string } } };
 }
