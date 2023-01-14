@@ -24,15 +24,6 @@ const App = () => {
 
       return randomPukimonJsonData;
     });
-
-    // return fetch(randomPukimonURL).then(async (_res) => {
-    //   setLoading(true);
-    //   if (!_res.ok)
-    //     throw new Error(`HTTP Error : status code is ${_res.status}`);
-    //   const _json = await _res.json();
-    //   setData(_json);
-    //   setLoading(false);
-    // });
   };
 
   /** react query fetch data of random pukimon */

@@ -10,6 +10,9 @@ export const setMainNumberState = selector({
   key: "setMainNumber",
   get: ({ get }) => {
     const number = get(mainNumberState) + Math.floor(Math.random() * 1154 + 1);
+    if (1010 < number && number < 10001) {
+      return 132;
+    }
     return number;
   },
   set: ({ set }, newValue) => {
