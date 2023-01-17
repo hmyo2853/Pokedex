@@ -2,19 +2,19 @@ import { useState, useEffect } from "react";
 import { PokeIndexData } from "./Pokedex";
 import "./sass/App.sass";
 import Pokedata from "./components/Pokedata";
-import { useRecoilState } from "recoil";
-import { setMainNumberState } from "./store/store";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { setMainNumberState, setTodaysPukimon } from "./store/store";
 import { useQuery } from "react-query";
 
 const App = () => {
-  const [randomNum, setRandomNum] = useRecoilState(setMainNumberState);
+  const [randomNumber, setRandomNumber] = useRecoilState(setMainNumberState);
+  const isPukimonAppeared = useRecoilValue(setTodaysPukimon);
 
-  const randomPukimonURL = `https://pokeapi.co/api/v2/pokemon/${randomNum}`;
-
-  const URL = "https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0";
+  // const URL = "https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0";
 
   const randomPukomonFetchData = async (): Promise<PokeIndexData | void> => {
-    /** 요청 응답 */
+    const randomPukimonURL = `https://pokeapi.co/api/v2/pokemon/${randomNumber}`;
+    /** 정상적인 요청 응답 */
     return fetch(randomPukimonURL).then(async (response) => {
       /** 응답 오류 처리 */
       if (!response.ok) return Promise.reject(`Error : ${response.status}`);
@@ -27,12 +27,32 @@ const App = () => {
   };
 
   /** react query fetch data of random pukimon */
-  const { data, isLoading } = useQuery("randomPukimon", randomPukomonFetchData);
+  const { data, isLoading } = useQuery(
+    "randomPukimon",
+    randomPukomonFetchData,
+    { enabled: isPukimonAppeared }
+  );
 
-  console.log(data);
+  console.log(
+    data,
+    `https://pokeapi.co/api/v2/pokemon/${randomNumber}`,
+    isPukimonAppeared
+  );
+
   if (isLoading) return <strong>Loading...</strong>;
 
-  return <>{/* <Pokedata info={_data} /> */}</>;
+  return (
+    <>
+      {isPukimonAppeared ? (
+        <>
+          <h1>오늘은 푸키몬이 있는날</h1>
+          <div>{data ? <Pokedata info={data} /> : null}</div>
+        </>
+      ) : (
+        <h1>오늘은 푸키몬 없는날, 다음에 봐!</h1>
+      )}
+    </>
+  );
 };
 
 export default App;
