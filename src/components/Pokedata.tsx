@@ -11,12 +11,10 @@ const Pokedata = (params: Props) => {
 
   return (
     <>
-      <ul>
-        <li>{info.id}</li>
-        <li>{info.name}</li>
-        {/* <span>{info.abilities[0]}</span> */}
-        {/* <span>{info.abilities[0]}</span> */}
-      </ul>
+      <span>no. {info.id}</span>
+      <span>
+        {info.names[2].name} ( {info.name} )
+      </span>
     </>
   );
 };

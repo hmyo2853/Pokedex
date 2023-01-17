@@ -11,11 +11,14 @@ const App = () => {
   const isPukimonAppeared = useRecoilValue(setTodaysPukimon);
 
   // const URL = "https://pokeapi.co/api/v2/pokemon?limit=10000&offset=0";
+  /** 일반 데이터 가져오기 */
+  const randomPukimonURL = `https://pokeapi.co/api/v2/pokemon/${randomNumber}`;
 
+  /** 한국어 데이터 가져오기 */
   const randomPukomonFetchData = async (): Promise<PokeIndexData | void> => {
-    const randomPukimonURL = `https://pokeapi.co/api/v2/pokemon/${randomNumber}`;
+    const fetchKoNameURL = `https://pokeapi.co/api/v2/pokemon-species/${randomNumber}`;
     /** 정상적인 요청 응답 */
-    return fetch(randomPukimonURL).then(async (response) => {
+    return fetch(fetchKoNameURL).then(async (response) => {
       /** 응답 오류 처리 */
       if (!response.ok) return Promise.reject(`Error : ${response.status}`);
 
