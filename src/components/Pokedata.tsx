@@ -5,16 +5,30 @@ interface Props {
 }
 
 const Pokedata = (params: Props) => {
+  console.log(params);
   const { info } = params;
 
   if (!info) return <></>;
 
   return (
     <>
-      <span>no. {info.id}</span>
-      <span>
-        {info.names[2].name} ( {info.name} )
-      </span>
+      <div>no. {info.id}</div>
+      <div>
+        {info.names.map((names, i) => {
+          if (names.language.name === "ko") {
+            return (
+              <div key={i}>
+                이름 : {names.name} ( {info.name} )
+              </div>
+            );
+          }
+        })}
+        {info.genera.map((genera) => {
+          if (genera.language.name === "ko") {
+            return <div>{genera.genus}</div>;
+          }
+        })}
+      </div>
     </>
   );
 };
