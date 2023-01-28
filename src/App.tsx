@@ -1,6 +1,6 @@
 import { PokeIndexData } from "./Pokedex";
 import "./sass/App.sass";
-import Pokedata from "./components/Pokedata";
+import Pokedata from "./components/pokedata/Pokedata";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { setMainNumberState, setTodaysPukimon } from "./store/store";
 import { useQuery } from "react-query";
