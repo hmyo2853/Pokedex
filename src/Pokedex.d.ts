@@ -1,14 +1,28 @@
 export interface PokeIndexData {
+  id: number;
   name: string;
-  abilities: [
+  names: [
     {
-      ability: {
+      language: {
         name: string;
-        url: string;
+      };
+      name: string;
+    }
+  ];
+  genera: [
+    {
+      genus: string;
+      language: {
+        name: string;
       };
     }
   ];
-  id: number;
-  state: Array;
-  sprites: { other: { officialArtwork: { front_default: string } } };
+  flavor_text_entries: [
+    {
+      flavor_text: string;
+      language: {
+        name: string;
+      };
+    }
+  ];
 }
