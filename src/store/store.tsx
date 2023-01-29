@@ -31,13 +31,27 @@ export const TodaysPukimon = atom({
   default: true,
 });
 
-export const setTodaysPukimon = selector({
-  key: "setTodaysPukimon",
+export const getTodaysPukimon = selector({
+  key: "getTodaysPukimon",
   get: ({ get }) => {
     const randomNumber = get(setMainNumberState);
     if (randomNumber === 0) {
       return false;
     }
     return true;
+  },
+});
+
+/** pukimon img */
+export const TodaysPukimonImg = atom({
+  key: "TodaysPukimonImg",
+  default: "",
+});
+
+export const getTodaysPukimonImg = selector({
+  key: "getTodaysPukimonImg",
+  get: ({ get }) => {
+    const randomNumber = get(setMainNumberState);
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${randomNumber}.png`;
   },
 });

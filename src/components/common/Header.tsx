@@ -2,6 +2,7 @@ import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import style from "../common/Common.module.sass";
 import { Link } from "react-router-dom";
+import Button from "./Button";
 
 interface Props {
   path: string;
@@ -24,7 +25,7 @@ const Header = ({ path, faIcon, isHome }: Props) => {
           <Link to={path} relative="path">
             <FontAwesomeIcon icon={faIcon} size="2x" />
           </Link>
-          마이페이지
+          <Button>로그아웃</Button>
         </>
       )}
     </div>

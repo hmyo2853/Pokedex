@@ -1,14 +1,19 @@
 import { PokeIndexData } from "../Pokedex";
 import Pokedata from "../components/pokedata/Pokedata";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { setMainNumberState, setTodaysPukimon } from "../store/store";
+import {
+  setMainNumberState,
+  getTodaysPukimon,
+  getTodaysPukimonImg,
+} from "../store/store";
 import { useQuery } from "react-query";
 import Header from "../components/common/Header";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 const Home = () => {
   const [randomNumber, setRandomNumber] = useRecoilState(setMainNumberState);
-  const isPukimonAppeared = useRecoilValue(setTodaysPukimon);
+  const ImgURL = useRecoilValue(getTodaysPukimonImg);
+  const isPukimonAppeared = useRecoilValue(getTodaysPukimon);
 
   /** ko en name, description data fetch*/
   const randomPukimonFetchData = async (): Promise<PokeIndexData | void> => {
@@ -35,8 +40,6 @@ const Home = () => {
     randomPukimonFetchData,
     { enabled: isPukimonAppeared }
   );
-
-  const ImgURL = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${randomNumber}.png`;
 
   if (_nameLoading) return <strong>Loading...</strong>;
 
