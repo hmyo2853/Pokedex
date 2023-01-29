@@ -6,13 +6,12 @@ interface Props {
 }
 
 const Pokedata = (params: Props) => {
-  console.log(params);
   const { info } = params;
 
   if (!info) return <></>;
 
   return (
-    <>
+    <div>
       <div>no. {info.id}</div>
       <div>
         {info.names.map((names, i) => {
@@ -31,7 +30,7 @@ const Pokedata = (params: Props) => {
         })}
       </div>
       <Button>오늘의 포켓몬을 잡는다.</Button>
-    </>
+    </div>
   );
 };
 
