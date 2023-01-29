@@ -3,6 +3,8 @@ import Pokedata from "../components/pokedata/Pokedata";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { setMainNumberState, setTodaysPukimon } from "../store/store";
 import { useQuery } from "react-query";
+import Header from "../components/common/Header";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 const Home = () => {
   const [randomNumber, setRandomNumber] = useRecoilState(setMainNumberState);
@@ -40,6 +42,7 @@ const Home = () => {
 
   return (
     <>
+      <Header path={"/mypukimon"} faIcon={faBars} isHome={true} />
       {isPukimonAppeared ? (
         <>
           <h1>오늘은 푸키몬이 있는날</h1>
