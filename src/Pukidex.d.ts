@@ -1,4 +1,4 @@
-export interface PokeIndexData {
+export interface PukiIndexData {
   id: number;
   name: string;
   names: [
@@ -25,4 +25,11 @@ export interface PokeIndexData {
       };
     }
   ];
+}
+
+export interface MyPukiList {
+  id: number;
+  name: string;
+  genera: string;
+  img: string;
 }
