@@ -1,18 +1,18 @@
-import { PokeIndexData } from "../../Pokedex";
+import { PukiIndexData } from "../../Pukidex";
 import Button from "../common/Button";
 
 interface Props {
-  info?: PokeIndexData;
+  info?: PukiIndexData;
 }
 
-const Pokedata = (params: Props) => {
+const PukimonData = (params: Props) => {
   console.log(params);
   const { info } = params;
 
   if (!info) return <></>;
 
   return (
-    <>
+    <div>
       <div>no. {info.id}</div>
       <div>
         {info.names.map((names, i) => {
@@ -31,8 +31,8 @@ const Pokedata = (params: Props) => {
         })}
       </div>
       <Button>오늘의 포켓몬을 잡는다.</Button>
-    </>
+    </div>
   );
 };
 
-export default Pokedata;
+export default PukimonData;

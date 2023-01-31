@@ -1,4 +1,4 @@
-import styles from "../common/Common.module.sass";
+import style from "../common/Common.module.sass";
 
 interface props {
   children: string;
@@ -7,7 +7,7 @@ interface props {
 const Button = ({ children }: props): JSX.Element => {
   return (
     <>
-      <button className={styles.Button}>
+      <button className={style.Button}>
         <span>{children}</span>
       </button>
     </>

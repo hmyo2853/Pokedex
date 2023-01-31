@@ -1,4 +1,5 @@
 import { atom, selector } from "recoil";
+import { MyPukiList } from "../Pukidex";
 
 /** randompukimon random number state */
 export const mainNumberState = atom({
@@ -31,8 +32,8 @@ export const TodaysPukimon = atom({
   default: true,
 });
 
-export const setTodaysPukimon = selector({
-  key: "setTodaysPukimon",
+export const getTodaysPukimon = selector({
+  key: "getTodaysPukimon",
   get: ({ get }) => {
     const randomNumber = get(setMainNumberState);
     if (randomNumber === 0) {
@@ -40,4 +41,55 @@ export const setTodaysPukimon = selector({
     }
     return true;
   },
+});
+
+/** pukimon img */
+export const TodaysPukimonImg = atom({
+  key: "TodaysPukimonImg",
+  default: "",
+});
+
+export const getTodaysPukimonImg = selector({
+  key: "getTodaysPukimonImg",
+  get: ({ get }) => {
+    const randomNumber = get(setMainNumberState);
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${randomNumber}.png`;
+  },
+});
+
+/** pukimon dummy list object */
+export const MyPukimonList = atom<MyPukiList[]>({
+  key: "MyPukimonList",
+  default: [
+    {
+      name: "삐삐",
+      id: 35,
+      genera: "요정포켓몬",
+      img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/35.png",
+    },
+    {
+      name: "썬더",
+      id: 145,
+      genera: "전기포켓몬",
+      img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/145.png",
+    },
+    {
+      name: "도롱충이",
+      id: 412,
+      genera: "도롱이벌레포켓몬",
+      img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/412.png",
+    },
+    {
+      name: "크레세리아",
+      id: 488,
+      genera: "초승달포켓몬",
+      img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/488.png",
+    },
+    {
+      name: "지그제구리",
+      id: 263,
+      genera: "앙증너구리포켓몬",
+      img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/263.png",
+    },
+  ],
 });
