@@ -33,3 +33,9 @@ export interface MyPukiList {
   genera: string;
   img: string;
 }
+
+export interface PukimonType {
+  type: {
+    name: string;
+  };
+}
