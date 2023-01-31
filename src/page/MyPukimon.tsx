@@ -15,22 +15,20 @@ const MyPukimon = () => {
       <div>마이페이지</div>
       <div>
         <h1>나의 푸키몬 리스트</h1>
-        <div>
-          <div className={style.MyPukimon}>
-            {dummyList.map((items: MyPukiList, i) => {
-              const imgURL = items.img;
-              return (
-                <div key={i}>
-                  <div>
-                    no. {items.id} {items.name} | {items.genera}
-                  </div>
-                  <div>
-                    <img src={imgURL} />
-                  </div>
+        <div className={style.MyPukimon}>
+          {dummyList.map((items: MyPukiList, i) => {
+            const imgURL = items.img;
+            return (
+              <div key={i} className={style.MyPukimonBlock}>
+                <div>
+                  no. {items.id} {items.name} | {items.genera}
                 </div>
-              );
-            })}
-          </div>
+                <div>
+                  <img src={imgURL} />
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </>

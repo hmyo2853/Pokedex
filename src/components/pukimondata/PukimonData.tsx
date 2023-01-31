@@ -1,19 +1,27 @@
-import { PukiIndexData } from "../../Pukidex";
-import Button from "../common/Button";
+import { PukiIndexData, PukimonType } from "../../Pukidex";
 
 interface Props {
   info?: PukiIndexData;
+  types?: PukimonType[];
 }
 
 const PukimonData = (params: Props) => {
-  console.log(params);
-  const { info } = params;
+  console.log(params.info);
+  console.log(params.types);
 
-  if (!info) return <></>;
+  const { info, types } = params;
+
+  if (!info || !types) return <>Loading....</>;
 
   return (
     <div>
       <div>no. {info.id}</div>
+      <div>
+        타입 :
+        {types.map((t, i) => {
+          return <div key={i}>{t.type.name}</div>;
+        })}
+      </div>
       <div>
         {info.names.map((names, i) => {
           if (names.language.name === "ko") {
@@ -30,7 +38,6 @@ const PukimonData = (params: Props) => {
           }
         })}
       </div>
-      <Button>오늘의 포켓몬을 잡는다.</Button>
     </div>
   );
 };

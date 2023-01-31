@@ -1,8 +1,8 @@
 import { atom, selector } from "recoil";
-import { MyPukiList } from "../Pukidex";
+import { MyPukiList, PukimonType } from "../Pukidex";
 
 /** randompukimon random number state */
-export const mainNumberState = atom({
+const mainNumberState = atom({
   key: "mainNumber",
   default: 0,
 });
@@ -27,7 +27,7 @@ export const setMainNumberState = selector({
 });
 
 /** randompukimon not appeared 기본값 True(잡을 푸키몬이 있다)*/
-export const TodaysPukimon = atom({
+const TodaysPukimon = atom({
   key: "TodaysPukimon",
   default: true,
 });
@@ -44,7 +44,7 @@ export const getTodaysPukimon = selector({
 });
 
 /** pukimon img */
-export const TodaysPukimonImg = atom({
+const TodaysPukimonImg = atom({
   key: "TodaysPukimonImg",
   default: "",
 });
@@ -92,4 +92,27 @@ export const MyPukimonList = atom<MyPukiList[]>({
       img: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/263.png",
     },
   ],
+});
+
+/** pukimon type data fetch */
+const pukimonType = atom({
+  key: "pukimonType",
+  default: {},
+});
+
+export const getPukimonFetchType = selector({
+  key: "getPukimonFetchType",
+  get: async ({ get }) => {
+    const randomNumber = get(setMainNumberState);
+    let typeData = get(pukimonType);
+    await fetch(`https://pokeapi.co/api/v2/pokemon/${randomNumber}`).then(
+      async (response) => {
+        /** error */
+        if (!response.ok) return Promise.reject(`Error : ${response.status}`);
+        const json = await response.json();
+        typeData = json.types;
+      }
+    );
+    return typeData as PukimonType[];
+  },
 });
