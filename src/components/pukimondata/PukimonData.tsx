@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { PukiIndexData } from "../../Pukidex";
 import Button from "../common/Button";
 
@@ -9,6 +10,18 @@ const PukimonData = (params: Props) => {
   console.log(params);
   const { info } = params;
 
+  const navigate = useNavigate();
+
+  const goLogin = () => {
+    /** exist user data */
+    /**
+     * if (user data === null) {
+     * navigate("/signin")}
+     * else {
+     * navigate("/mypukimon")}
+     */
+    navigate("/SignIn");
+  };
   if (!info) return <></>;
 
   return (
@@ -30,7 +43,9 @@ const PukimonData = (params: Props) => {
           }
         })}
       </div>
-      <Button>오늘의 포켓몬을 잡는다.</Button>
+      <div onClick={goLogin}>
+        <Button>오늘의 포켓몬을 잡는다.</Button>
+      </div>
     </div>
   );
 };

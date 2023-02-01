@@ -1,5 +1,5 @@
 import { faHome } from "@fortawesome/free-solid-svg-icons";
-import style from "./MyPukimon.module.sass";
+import style from "./Page.module.sass";
 import Header from "../components/common/Header";
 import { useRecoilValue } from "recoil";
 import { MyPukimonList } from "../store/store";
