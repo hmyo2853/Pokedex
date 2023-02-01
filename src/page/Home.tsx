@@ -1,19 +1,22 @@
 import { PukiIndexData } from "../Pukidex";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from "recoil";
 import {
   setMainNumberState,
   getTodaysPukimon,
   getTodaysPukimonImg,
+  getPukimonFetchType,
 } from "../store/store";
 import { useQuery } from "react-query";
 import Header from "../components/common/Header";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import PukimonData from "../components/pukimondata/PukimonData";
+import Button from "../components/common/Button";
 
 const Home = () => {
   const [randomNumber, setRandomNumber] = useRecoilState(setMainNumberState);
   const ImgURL = useRecoilValue(getTodaysPukimonImg);
   const isPukimonAppeared = useRecoilValue(getTodaysPukimon);
+  const pukimonFetchTypeData = useRecoilValueLoadable(getPukimonFetchType);
 
   /** ko en name, description data fetch*/
   const randomPukimonFetchData = async (): Promise<PukiIndexData | void> => {
@@ -50,19 +53,32 @@ const Home = () => {
 
   if (_nameLoading) return <strong>Loading...</strong>;
 
-  return (
-    <>
-      <Header path={"/mypukimon"} faIcon={faBars} isHome={true} />
-      {isPukimonAppeared ? (
-        <>
-          <div>{_nameData ? <PukimonData info={_nameData} /> : null}</div>
-          <img src={ImgURL} style={{ width: "400px" }} />
-        </>
-      ) : (
-        <h1>오늘은 푸키몬 없는날, 다음에 봐!</h1>
-      )}
-    </>
-  );
+  switch (pukimonFetchTypeData.state) {
+    case "hasValue":
+      return (
+        <div>
+          <Header path={"/mypukimon"} faIcon={faBars} isHome={true} />
+          {isPukimonAppeared ? (
+            <div className="HomePukimon">
+              {_nameData ? (
+                <PukimonData
+                  info={_nameData}
+                  types={pukimonFetchTypeData.contents}
+                />
+              ) : null}
+              <img src={ImgURL} style={{ width: "400px" }} />
+              <Button>오늘의 포켓몬을 잡는다.</Button>
+            </div>
+          ) : (
+            <h1>오늘은 푸키몬 없는날, 다음에 봐!</h1>
+          )}
+        </div>
+      );
+    case "loading":
+      return <>Loading.....</>;
+    case "hasError":
+      throw pukimonFetchTypeData.contents;
+  }
 };
 
 export default Home;

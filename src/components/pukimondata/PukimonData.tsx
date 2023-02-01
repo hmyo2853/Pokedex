@@ -1,14 +1,17 @@
+import { PukiIndexData, PukimonType } from "../../Pukidex";
 import { useNavigate } from "react-router-dom";
-import { PukiIndexData } from "../../Pukidex";
 import Button from "../common/Button";
 
 interface Props {
   info?: PukiIndexData;
+  types?: PukimonType[];
 }
 
 const PukimonData = (params: Props) => {
-  console.log(params);
-  const { info } = params;
+  console.log(params.info);
+  console.log(params.types);
+
+  const { info, types } = params;
 
   const navigate = useNavigate();
 
@@ -22,11 +25,17 @@ const PukimonData = (params: Props) => {
      */
     navigate("/SignIn");
   };
-  if (!info) return <></>;
+  if (!info || !types) return <></>;
 
   return (
     <div>
       <div>no. {info.id}</div>
+      <div>
+        타입 :
+        {types.map((t, i) => {
+          return <div key={i}>{t.type.name}</div>;
+        })}
+      </div>
       <div>
         {info.names.map((names, i) => {
           if (names.language.name === "ko") {
